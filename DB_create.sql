@@ -67,8 +67,8 @@ ALTER TABLE "director" ADD FOREIGN KEY (movie_id) REFERENCES movie (movie_id);
 ALTER TABLE "quote" ADD FOREIGN KEY (actor_id) REFERENCES actor (actor_id);
 ALTER TABLE "quote" ADD FOREIGN KEY (movie_id) REFERENCES movie (movie_id);
 
-ALTER TABLE "genre" ADD FOREIGN KEY (genre_id) REFERENCES genre (genre_id);
-ALTER TABLE "genre" ADD FOREIGN KEY (movie_id) REFERENCES movie (movie_id);
+ALTER TABLE "has_genre" ADD FOREIGN KEY (genre_id) REFERENCES genre (genre_id);
+ALTER TABLE "has_genre" ADD FOREIGN KEY (movie_id) REFERENCES movie (movie_id);
 
 
 
@@ -80,6 +80,6 @@ INSERT INTO company (name, address) VALUES ('E Corp', 'Universitetskya 1, 414');
 
 INSERT INTO genre (name) VALUES ('Drama');
 
-#INSERT INTO movie (title, release, length, company, outline, genre) VALUES ('Mr. Robot', '2015-01-03 00:00:00-00', '64', 1, 'Hack the planet', 'Drama');
+INSERT INTO movie (title, release, length, company, outline, genre) VALUES ('Mr. Robot', '2015-01-03 00:00:00-00', '64', 1, 'Hack the planet', 'Drama');
 
-#INSERT INTO actor (role, person_id, movie_id) VALUES ('Elliot Alderson', 1, 1);
+INSERT INTO actor (role, person_id, movie_id) VALUES ('Elliot Alderson', 1, 1);
