@@ -71,7 +71,6 @@ ALTER TABLE "has_genre" ADD FOREIGN KEY (genre_id) REFERENCES genre (genre_id);
 ALTER TABLE "has_genre" ADD FOREIGN KEY (movie_id) REFERENCES movie (movie_id);
 
 
-
 INSERT INTO person (name, birth_date) VALUES ('Rami Malek', '1981-05-12 00:00:00-00');
 INSERT INTO person (name, birth_date) VALUES ('Carly Chaikin', '1990-03-26 00:00:00-00');
 INSERT INTO person (name, birth_date) VALUES ('Sam Esmail', '1977-09-17 00:00:00-00');
@@ -83,3 +82,7 @@ INSERT INTO genre (name) VALUES ('Drama');
 INSERT INTO movie (title, release, length, company, outline, genre) VALUES ('Mr. Robot', '2015-01-03 00:00:00-00', '64', 1, 'Hack the planet', 'Drama');
 
 INSERT INTO actor (role, person_id, movie_id) VALUES ('Elliot Alderson', 1, 1);
+
+INSERT INTO director (person_id, movie_id) VALUES (3, 1);
+
+INSERT INTO quote (text, movie_id, actor_id) VALUES ('I wanted to save the world.', 1, 1);
