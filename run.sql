@@ -5,55 +5,55 @@ CREATE DATABASE movie;
 \c movie
 
 CREATE TABLE IF NOT EXISTS movie (
-  movie_id serial PRIMARY KEY,
-  title VARCHAR ( 255 ) NOT NULL,
-  release TIMESTAMP NOT NULL,
-  length int,
-  company int NOT NULL,
-  outline VARCHAR ( 255 ) UNIQUE NOT NULL,
-  genre VARCHAR ( 255 ) NOT NULL
+	movie_id serial PRIMARY KEY,
+	title VARCHAR ( 255 ) NOT NULL,
+	release TIMESTAMP NOT NULL,
+	length int,
+	company int NOT NULL,
+	outline VARCHAR ( 255 ) UNIQUE NOT NULL,
+	genre VARCHAR ( 255 ) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS actor (
-  actor_id serial PRIMARY KEY,
-  role VARCHAR ( 255 ) NOT NULL,
-  person_id int,
-  movie_id int
+	actor_id serial PRIMARY KEY,
+	role VARCHAR ( 255 ) NOT NULL,
+	person_id int,
+	movie_id int
 );
 
 CREATE TABLE IF NOT EXISTS director (
-  director_id serial PRIMARY KEY,
-  person_id int,
-  movie_id int
+	director_id serial PRIMARY KEY,
+	person_id int,
+	movie_id int
 );
 
 CREATE TABLE IF NOT EXISTS person (
-  person_id serial PRIMARY KEY,
-  name VARCHAR ( 255 ) NOT NULL,
-  birth_date TIMESTAMP NOT NULL
+	person_id serial PRIMARY KEY,
+	name VARCHAR ( 255 ) NOT NULL,
+	birth_date TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS quote (
-  quote_id serial PRIMARY KEY,
-  text VARCHAR ( 255 ) NOT NULL,
-  movie_id int,
-  actor_id int
+	quote_id serial PRIMARY KEY,
+	text VARCHAR ( 255 ) NOT NULL,
+	movie_id int,
+	actor_id int
 );
 
 CREATE TABLE IF NOT EXISTS company (
-  company_id serial PRIMARY KEY,
-  name varchar ( 255 ) UNIQUE NOT NULL,
-  address varchar ( 255 ) UNIQUE NOT NULL
+	company_id serial PRIMARY KEY,
+	name varchar ( 255 ) UNIQUE NOT NULL,
+	address varchar ( 255 ) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS genre (
-  genre_id serial PRIMARY KEY,
-  name varchar ( 255 ) UNIQUE NOT NULL
+	genre_id serial PRIMARY KEY,
+	name varchar ( 255 ) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS has_genre (
-  genre_id int,
-  movie_id int
+	genre_id int,
+	movie_id int
 );
 
 ALTER TABLE "movie" ADD FOREIGN KEY (company) REFERENCES company (company_id);
@@ -86,3 +86,14 @@ INSERT INTO actor (role, person_id, movie_id) VALUES ('Elliot Alderson', 1, 1);
 INSERT INTO director (person_id, movie_id) VALUES (3, 1);
 
 INSERT INTO quote (text, movie_id, actor_id) VALUES ('I wanted to save the world.', 1, 1);
+
+
+SELECT * FROM person;
+
+SELECT * FROM actor;
+
+SELECT * FROM director;
+
+SELECT * FROM movie;
+
+SELECT * FROM quote;
