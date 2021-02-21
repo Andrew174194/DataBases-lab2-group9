@@ -3,7 +3,7 @@ from faker import Faker
 from tqdm import tqdm
 
 con = psycopg2.connect(database="customers", user="postgres",
-                       password="innopolis", host="127.0.0.1", port="5432")
+                       password=[REDACTED], host="127.0.0.1", port="5432")
 table = "CUSTOMER_1"
 
 print("Database opened successfully")
