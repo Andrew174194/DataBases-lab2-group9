@@ -3,80 +3,48 @@
 # Before creation of index:
 
 ```sql
-explain (verbose, analyze) select title from film where ((rating='R' or rating='PG-13') and film_id in (select film_id from film_category where (category_id=11 or category_id=14)) and film_id not in (select film_id from inventory where inventory_id in (select inventory_id from rental where return_date is NULL)));
+explain (verbose, analyze) select title from film where ((rating='R' or rating='PG-13') and film_id in (select film_id from film_category where (category_id=11 or category_id=14)) and film_id not in (select film_id from inventory where inventory_id in (select inventory_id  from rental)));
 ```
 
 ```sql
- Hash Semi Join  (cost=421.40..493.62 rows=21 width=15) (actual time=3.125..3.529 rows=54 loops=1)                                                        
-   Output: film.title                                                                                                                                     
-   Hash Cond: (film.film_id = film_category.film_id)                                                                                                      
-   ->  Seq Scan on public.film  (cost=398.97..470.47 rows=187 width=19) (actual time=2.977..3.339 rows=354 loops=1)                                       
+ Hash Semi Join  (cost=763.82..836.04 rows=21 width=15) (actual time=5.287..5.487 rows=3 loops=1)
+   Output: film.title
+   Hash Cond: (film.film_id = film_category.film_id)
+   ->  Seq Scan on public.film  (cost=741.40..812.90 rows=187 width=19) (actual time=5.085..5.318 rows=16 loops=1)
          Output: film.film_id, film.title, film.description, film.release_year, film.language_id, film.rental_duration, film.rental_rate, film.length, fil
 m.replacement_cost, film.rating, film.last_update, film.special_features, film.fulltext
          Filter: ((NOT (hashed SubPlan 1)) AND ((film.rating = 'R'::mpaa_rating) OR (film.rating = 'PG-13'::mpaa_rating)))
-         Rows Removed by Filter: 646
+         Rows Removed by Filter: 984
          SubPlan 1
-           ->  Hash Semi Join  (cost=312.73..398.51 rows=183 width=2) (actual time=1.737..2.895 rows=183 loops=1)
+           ->  Merge Semi Join  (cost=0.57..729.95 rows=4580 width=2) (actual time=0.033..4.074 rows=4580 loops=1)
                  Output: inventory.film_id
-                 Hash Cond: (inventory.inventory_id = rental.inventory_id)
-                 ->  Seq Scan on public.inventory  (cost=0.00..70.81 rows=4581 width=6) (actual time=0.006..0.450 rows=4581 loops=1)
+                 Merge Cond: (inventory.inventory_id = rental.inventory_id)
+                 ->  Index Scan using inventory_pkey on public.inventory  (cost=0.28..157.00 rows=4581 width=6) (actual time=0.009..0.955 rows=4581 loops=
+1)
                        Output: inventory.inventory_id, inventory.film_id, inventory.store_id, inventory.last_update
-                 ->  Hash  (cost=310.44..310.44 rows=183 width=4) (actual time=1.722..1.722 rows=183 loops=1)
+                 ->  Index Only Scan using idx_fk_inventory_id on public.rental  (cost=0.29..360.94 rows=16044 width=4) (actual time=0.021..1.413 rows=160
+40 loops=1)
                        Output: rental.inventory_id
-                       Buckets: 1024  Batches: 1  Memory Usage: 15kB
-                       ->  Seq Scan on public.rental  (cost=0.00..310.44 rows=183 width=4) (actual time=1.015..1.625 rows=183 loops=1)
-                             Output: rental.inventory_id
-                             Filter: (rental.return_date IS NULL)
-                             Rows Removed by Filter: 15861
-   ->  Hash  (cost=21.00..21.00 rows=114 width=2) (actual time=0.138..0.139 rows=117 loops=1)
+                       Heap Fetches: 0
+   ->  Hash  (cost=21.00..21.00 rows=114 width=2) (actual time=0.161..0.161 rows=117 loops=1)
          Output: film_category.film_id
          Buckets: 1024  Batches: 1  Memory Usage: 12kB
-         ->  Seq Scan on public.film_category  (cost=0.00..21.00 rows=114 width=2) (actual time=0.014..0.116 rows=117 loops=1)
+         ->  Seq Scan on public.film_category  (cost=0.00..21.00 rows=114 width=2) (actual time=0.036..0.141 rows=117 loops=1)
                Output: film_category.film_id
                Filter: ((film_category.category_id = 11) OR (film_category.category_id = 14))
                Rows Removed by Filter: 883
- Planning Time: 2.181 ms
- Execution Time: 3.578 ms
-(29 rows)
+ Planning Time: 0.530 ms
+ Execution Time: 5.543 ms
+(25 rows)
 ```
 
 # After creation of index (partial index for unreturned movies):
 
 ```sql
-create index on rental using btree (return_date) where return_date is NULL;
+?
 ```
 
 ```sql
- Hash Semi Join  (cost=148.40..220.63 rows=21 width=15) (actual time=1.422..2.015 rows=54 loops=1)
-   Output: film.title
-   Hash Cond: (film.film_id = film_category.film_id)
-   ->  Seq Scan on public.film  (cost=125.98..197.48 rows=187 width=19) (actual time=1.278..1.812 rows=354 loops=1)
-         Output: film.film_id, film.title, film.description, film.release_year, film.language_id, film.rental_duration, film.rental_rate, film.length, fil
-m.replacement_cost, film.rating, film.last_update, film.special_features, film.fulltext
-         Filter: ((NOT (hashed SubPlan 1)) AND ((film.rating = 'R'::mpaa_rating) OR (film.rating = 'PG-13'::mpaa_rating)))
-         Rows Removed by Filter: 646
-         SubPlan 1
-           ->  Hash Semi Join  (cost=39.74..125.52 rows=183 width=2) (actual time=0.162..1.222 rows=183 loops=1)
-                 Output: inventory.film_id
-                 Hash Cond: (inventory.inventory_id = rental.inventory_id)
-                 ->  Seq Scan on public.inventory  (cost=0.00..70.81 rows=4581 width=6) (actual time=0.006..0.462 rows=4581 loops=1)
-                       Output: inventory.inventory_id, inventory.film_id, inventory.store_id, inventory.last_update
-                 ->  Hash  (cost=37.45..37.45 rows=183 width=4) (actual time=0.138..0.139 rows=183 loops=1)
-                       Output: rental.inventory_id
-                       Buckets: 1024  Batches: 1  Memory Usage: 15kB
-                       ->  Index Scan using rental_return_date_idx on public.rental  (cost=0.14..37.45 rows=183 width=4) (actual time=0.031..0.107 rows=18
-3 loops=1)
-                             Output: rental.inventory_id
-   ->  Hash  (cost=21.00..21.00 rows=114 width=2) (actual time=0.137..0.138 rows=117 loops=1)
-         Output: film_category.film_id
-         Buckets: 1024  Batches: 1  Memory Usage: 12kB
-         ->  Seq Scan on public.film_category  (cost=0.00..21.00 rows=114 width=2) (actual time=0.016..0.119 rows=117 loops=1)
-               Output: film_category.film_id
-               Filter: ((film_category.category_id = 11) OR (film_category.category_id = 14))
-               Rows Removed by Filter: 883
- Planning Time: 1.421 ms
- Execution Time: 2.060 ms
-(27 rows)
 ```
 
 # Second query
