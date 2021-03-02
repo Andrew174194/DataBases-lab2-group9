@@ -38,7 +38,7 @@ m.replacement_cost, film.rating, film.last_update, film.special_features, film.f
 (25 rows)
 ```
 
-# After creation of index (partial index for unreturned movies):
+# After creation of index (partial index for indexes depends on film_id):
 
 ```sql
 create index on inventory using btree (inventory_id, film_id);
