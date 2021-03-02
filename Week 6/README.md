@@ -40,7 +40,7 @@ m.replacement_cost, film.rating, film.last_update, film.special_features, film.f
 (29 rows)
 ```
 
-# After creation of index:
+# After creation of index (partial index for unreturned movies):
 
 ```sql
 create index on rental using btree (return_date) where return_date is NULL;
@@ -111,7 +111,7 @@ estamp without time zone))
 (19 rows)
 ```
 
-# After creation of index:
+# After creation of index (comparison of payment_date <>):
 
 ```sql
 create index on payment using btree(payment_date);
