@@ -90,31 +90,44 @@ oops=1)
 # Before creation of index:
 
 ```sql
-explain (verbose, analyze) select store_id, sum(amount) as "money" from payment left outer join customer using (customer_id) left outer join store using (store_id) where payment_date > '2007/04/14' and payment_date < '2007/05/14' group by store_id;
+explain (verbose, analyze) select * from (select store_id, sum(amount) as money from payment right join customer using (customer_id) right join store using (store_id) where payment_date > '2007/04/14' and payment_date <= '2007/05/14' group by store_id) as answer order by money desc;
 ```
 
 ```sql
- HashAggregate  (cost=383.07..383.10 rows=2 width=36) (actual time=5.560..5.563 rows=2 loops=1)
-   Output: ((customer.store_id)::integer), sum(payment.amount)
-   Group Key: (customer.store_id)::integer
-   Batches: 1  Memory Usage: 24kB
-   ->  Hash Left Join  (cost=22.48..366.48 rows=3317 width=10) (actual time=1.253..3.996 rows=3300 loops=1)
-         Output: customer.store_id, payment.amount
-         Inner Unique: true
-         Hash Cond: (payment.customer_id = customer.customer_id)
-         ->  Seq Scan on public.payment  (cost=0.00..326.94 rows=3317 width=8) (actual time=0.982..2.560 rows=3300 loops=1)
-               Output: payment.payment_id, payment.customer_id, payment.staff_id, payment.rental_id, payment.amount, payment.payment_date
-               Filter: ((payment.payment_date > '2007-04-14 00:00:00'::timestamp without time zone) AND (payment.payment_date < '2007-05-14 00:00:00'::tim
-estamp without time zone))
-               Rows Removed by Filter: 11296
-         ->  Hash  (cost=14.99..14.99 rows=599 width=6) (actual time=0.259..0.260 rows=599 loops=1)
-               Output: customer.store_id, customer.customer_id
-               Buckets: 1024  Batches: 1  Memory Usage: 32kB
-               ->  Seq Scan on public.customer  (cost=0.00..14.99 rows=599 width=6) (actual time=0.012..0.139 rows=599 loops=1)
-                     Output: customer.store_id, customer.customer_id
- Planning Time: 1.913 ms
- Execution Time: 5.615 ms
-(19 rows)
+ Sort  (cost=403.03..403.03 rows=2 width=36) (actual time=4.077..4.079 rows=2 loops=1)
+   Output: store.store_id, (sum(payment.amount))
+   Sort Key: (sum(payment.amount)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=402.97..403.00 rows=2 width=36) (actual time=4.071..4.073 rows=2 loops=1)
+         Output: store.store_id, sum(payment.amount)
+         Group Key: store.store_id
+         Batches: 1  Memory Usage: 24kB
+         ->  Hash Join  (cost=23.52..386.39 rows=3317 width=10) (actual time=1.017..3.378 rows=3300 loops=1)
+               Output: store.store_id, payment.amount
+               Inner Unique: true
+               Hash Cond: (customer.store_id = store.store_id)
+               ->  Hash Join  (cost=22.48..358.19 rows=3317 width=8) (actual time=0.984..2.660 rows=3300 loops=1)
+                     Output: payment.amount, customer.store_id
+                     Inner Unique: true
+                     Hash Cond: (payment.customer_id = customer.customer_id)
+                     ->  Seq Scan on public.payment  (cost=0.00..326.94 rows=3317 width=8) (actual time=0.759..1.691 rows=3300 loops=1)
+                           Output: payment.payment_id, payment.customer_id, payment.staff_id, payment.rental_id, payment.amount, payment.payment_date
+                           Filter: ((payment.payment_date > '2007-04-14 00:00:00'::timestamp without time zone) AND (payment.payment_date <= '2007-05-14 0
+0:00:00'::timestamp without time zone))
+                           Rows Removed by Filter: 11296
+                     ->  Hash  (cost=14.99..14.99 rows=599 width=6) (actual time=0.205..0.205 rows=599 loops=1)
+                           Output: customer.customer_id, customer.store_id
+                           Buckets: 1024  Batches: 1  Memory Usage: 31kB
+                           ->  Seq Scan on public.customer  (cost=0.00..14.99 rows=599 width=6) (actual time=0.008..0.095 rows=599 loops=1)
+                                 Output: customer.customer_id, customer.store_id
+               ->  Hash  (cost=1.02..1.02 rows=2 width=4) (actual time=0.024..0.024 rows=2 loops=1)
+                     Output: store.store_id
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on public.store  (cost=0.00..1.02 rows=2 width=4) (actual time=0.009..0.010 rows=2 loops=1)
+                           Output: store.store_id
+ Planning Time: 0.442 ms
+ Execution Time: 4.116 ms
+(32 rows)
 ```
 
 # After creation of index (comparison of payment_date <>):
@@ -124,29 +137,43 @@ create index on payment using btree(payment_date);
 ```
 
 ```sql
- HashAggregate  (cost=287.96..287.99 rows=2 width=36) (actual time=3.031..3.033 rows=2 loops=1)
-   Output: ((customer.store_id)::integer), sum(payment.amount)
-   Group Key: (customer.store_id)::integer
-   Batches: 1  Memory Usage: 24kB
-   ->  Hash Left Join  (cost=96.70..271.40 rows=3311 width=10) (actual time=0.623..2.167 rows=3300 loops=1)
-         Output: customer.store_id, payment.amount
-         Inner Unique: true
-         Hash Cond: (payment.customer_id = customer.customer_id)
-         ->  Bitmap Heap Scan on public.payment  (cost=74.22..231.89 rows=3311 width=8) (actual time=0.428..0.927 rows=3300 loops=1)
-               Output: payment.payment_id, payment.customer_id, payment.staff_id, payment.rental_id, payment.amount, payment.payment_date
-               Recheck Cond: ((payment.payment_date > '2007-04-14 00:00:00'::timestamp without time zone) AND (payment.payment_date < '2007-05-14 00:00:00
-'::timestamp without time zone))
-               Heap Blocks: exact=50
-               ->  Bitmap Index Scan on payment_payment_date_idx  (cost=0.00..73.39 rows=3311 width=0) (actual time=0.414..0.414 rows=3300 loops=1)
-                     Index Cond: ((payment.payment_date > '2007-04-14 00:00:00'::timestamp without time zone) AND (payment.payment_date < '2007-05-14 00:0
-0:00'::timestamp without time zone))
-         ->  Hash  (cost=14.99..14.99 rows=599 width=6) (actual time=0.180..0.180 rows=599 loops=1)
-               Output: customer.store_id, customer.customer_id
-               Buckets: 1024  Batches: 1  Memory Usage: 32kB
-               ->  Seq Scan on public.customer  (cost=0.00..14.99 rows=599 width=6) (actual time=0.010..0.093 rows=599 loops=1)
-                     Output: customer.store_id, customer.customer_id
- Planning Time: 1.050 ms
- Execution Time: 3.116 ms
-(21 rows)
+ Sort  (cost=307.93..307.93 rows=2 width=36) (actual time=3.631..3.634 rows=2 loops=1)
+   Output: store.store_id, (sum(payment.amount))
+   Sort Key: (sum(payment.amount)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=307.87..307.90 rows=2 width=36) (actual time=3.622..3.626 rows=2 loops=1)
+         Output: store.store_id, sum(payment.amount)
+         Group Key: store.store_id
+         Batches: 1  Memory Usage: 24kB
+         ->  Hash Join  (cost=97.76..291.31 rows=3312 width=10) (actual time=0.672..2.855 rows=3300 loops=1)
+               Output: store.store_id, payment.amount
+               Inner Unique: true
+               Hash Cond: (customer.store_id = store.store_id)
+               ->  Hash Join  (cost=96.71..263.15 rows=3312 width=8) (actual time=0.656..2.215 rows=3300 loops=1)
+                     Output: payment.amount, customer.store_id
+                     Inner Unique: true
+                     Hash Cond: (payment.customer_id = customer.customer_id)
+                     ->  Bitmap Heap Scan on public.payment  (cost=74.23..231.91 rows=3312 width=8) (actual time=0.305..0.819 rows=3300 loops=1)
+                           Output: payment.payment_id, payment.customer_id, payment.staff_id, payment.rental_id, payment.amount, payment.payment_date
+                           Recheck Cond: ((payment.payment_date > '2007-04-14 00:00:00'::timestamp without time zone) AND (payment.payment_date <= '2007-0
+5-14 00:00:00'::timestamp without time zone))
+                           Heap Blocks: exact=50
+                           ->  Bitmap Index Scan on payment_payment_date_idx  (cost=0.00..73.41 rows=3312 width=0) (actual time=0.292..0.292 rows=3300 loo
+ps=1)
+                                 Index Cond: ((payment.payment_date > '2007-04-14 00:00:00'::timestamp without time zone) AND (payment.payment_date <= '20
+07-05-14 00:00:00'::timestamp without time zone))
+                     ->  Hash  (cost=14.99..14.99 rows=599 width=6) (actual time=0.344..0.344 rows=599 loops=1)
+                           Output: customer.customer_id, customer.store_id
+                           Buckets: 1024  Batches: 1  Memory Usage: 31kB
+                           ->  Seq Scan on public.customer  (cost=0.00..14.99 rows=599 width=6) (actual time=0.007..0.111 rows=599 loops=1)
+                                 Output: customer.customer_id, customer.store_id
+               ->  Hash  (cost=1.02..1.02 rows=2 width=4) (actual time=0.011..0.012 rows=2 loops=1)
+                     Output: store.store_id
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on public.store  (cost=0.00..1.02 rows=2 width=4) (actual time=0.008..0.009 rows=2 loops=1)
+                           Output: store.store_id
+ Planning Time: 0.997 ms
+ Execution Time: 3.681 ms
+(34 rows)
 ```
 
