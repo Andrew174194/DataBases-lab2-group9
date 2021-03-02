@@ -3,39 +3,44 @@
 # Before creation of index:
 
 ```sql
-explain (verbose, analyze) select title from film where ((rating='R' or rating='PG-13') and film_id in (select film_id from film_category where (category_id=11 or category_id=14)) and film_id not in (select film_id from inventory where inventory_id in (select inventory_id  from rental)));
+explain (verbose, analyze) select title from film where ((rating='R' or rating='PG-13') and film_id in (select film_id from film_category where (category_id=11 or category_id=14)) and film_id not in (select film_id from inventory where inventory_id in (select inventory_id from rental)));
 ```
 
 ```sql
- Hash Semi Join  (cost=763.82..836.04 rows=21 width=15) (actual time=5.287..5.487 rows=3 loops=1)
+ Nested Loop Semi Join  (cost=469.09..562.36 rows=1 width=516) (actual time=8.041..8.295 rows=3 loops=1)
    Output: film.title
-   Hash Cond: (film.film_id = film_category.film_id)
-   ->  Seq Scan on public.film  (cost=741.40..812.90 rows=187 width=19) (actual time=5.085..5.318 rows=16 loops=1)
+   Join Filter: (film.film_id = film_category.film_id)
+   Rows Removed by Join Filter: 1684
+   ->  Seq Scan on public.film  (cost=469.09..540.59 rows=5 width=520) (actual time=7.900..8.099 rows=16 loops=1)
          Output: film.film_id, film.title, film.description, film.release_year, film.language_id, film.rental_duration, film.rental_rate, film.length, fil
 m.replacement_cost, film.rating, film.last_update, film.special_features, film.fulltext
          Filter: ((NOT (hashed SubPlan 1)) AND ((film.rating = 'R'::mpaa_rating) OR (film.rating = 'PG-13'::mpaa_rating)))
          Rows Removed by Filter: 984
          SubPlan 1
-           ->  Merge Semi Join  (cost=0.57..729.95 rows=4580 width=2) (actual time=0.033..4.074 rows=4580 loops=1)
+           ->  Hash Join  (cost=355.05..463.36 rows=2290 width=2) (actual time=6.520..7.410 rows=4580 loops=1)
                  Output: inventory.film_id
-                 Merge Cond: (inventory.inventory_id = rental.inventory_id)
-                 ->  Index Scan using inventory_pkey on public.inventory  (cost=0.28..157.00 rows=4581 width=6) (actual time=0.009..0.955 rows=4581 loops=
-1)
+                 Inner Unique: true
+                 Hash Cond: (inventory.inventory_id = rental.inventory_id)
+                 ->  Seq Scan on public.inventory  (cost=0.00..70.81 rows=4581 width=6) (actual time=0.012..0.266 rows=4581 loops=1)
                        Output: inventory.inventory_id, inventory.film_id, inventory.store_id, inventory.last_update
-                 ->  Index Only Scan using idx_fk_inventory_id on public.rental  (cost=0.29..360.94 rows=16044 width=4) (actual time=0.021..1.413 rows=160
-40 loops=1)
+                 ->  Hash  (cost=352.55..352.55 rows=200 width=4) (actual time=6.497..6.498 rows=4580 loops=1)
                        Output: rental.inventory_id
-                       Heap Fetches: 0
-   ->  Hash  (cost=21.00..21.00 rows=114 width=2) (actual time=0.161..0.161 rows=117 loops=1)
+                       Buckets: 8192 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 226kB
+                       ->  HashAggregate  (cost=350.55..352.55 rows=200 width=4) (actual time=5.741..6.085 rows=4580 loops=1)
+                             Output: rental.inventory_id
+                             Group Key: rental.inventory_id
+                             Batches: 1  Memory Usage: 481kB
+                             ->  Seq Scan on public.rental  (cost=0.00..310.44 rows=16044 width=4) (actual time=0.008..2.041 rows=16044 loops=1)
+                                   Output: rental.inventory_id
+   ->  Materialize  (cost=0.00..21.05 rows=10 width=2) (actual time=0.001..0.008 rows=105 loops=16)
          Output: film_category.film_id
-         Buckets: 1024  Batches: 1  Memory Usage: 12kB
-         ->  Seq Scan on public.film_category  (cost=0.00..21.00 rows=114 width=2) (actual time=0.036..0.141 rows=117 loops=1)
+         ->  Seq Scan on public.film_category  (cost=0.00..21.00 rows=10 width=2) (actual time=0.008..0.064 rows=117 loops=1)
                Output: film_category.film_id
                Filter: ((film_category.category_id = 11) OR (film_category.category_id = 14))
                Rows Removed by Filter: 883
- Planning Time: 0.530 ms
- Execution Time: 5.543 ms
-(25 rows)
+ Planning Time: 0.339 ms
+ Execution Time: 8.355 ms
+(32 rows)
 ```
 
 # After creation of index (partial index for unreturned movies):
