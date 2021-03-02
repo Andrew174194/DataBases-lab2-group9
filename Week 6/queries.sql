@@ -3,7 +3,7 @@ select title from film where ((rating='R' or rating='PG-13') and film_id in (sel
 select store_id, sum(amount) as "money" from payment left outer join customer using (customer_id) left outer join store using (store_id) where payment_date > '2007/04/14' and payment_date < '2007/05/14' group by store_id;
 
 -- solution for first:
-create index on film using hash (rating);
+create index on rental using btree (return_date) where return_date is NULL;
 
 -- solution for second:
 create index on payment using btree(payment_date);
