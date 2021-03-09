@@ -1,6 +1,7 @@
 import psycopg2
 import geopy.geocoders
 from faker import Faker
+from time import sleep
 from geopy.geocoders import Nominatim
 con = psycopg2.connect(database="postgres", user="postgres",
                        password="postgres", host="127.0.0.1", port="5432")
@@ -24,13 +25,14 @@ m = cur.fetchall()
 
 nice = {}
 
-geolocator = Nominatim(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36")
-geopy.geocoders.options.default_timeout = 10
+geolocator = Nominatim(user_agent="Mozilla/5.0")
+geopy.geocoders.options.default_timeout = 60
 
 for i in m:
         try:
                 location = geolocator.geocode(i[0].split(',')[1][1:-2])
                 nice[i[0].split(',')[0][1:]] = (location.latitude, location.longitude)
+                sleep(1)
         except Exception as e:
                 print('For address_id = {n} we have following error:'.format(n=i[0].split(',')[0][1:]))
                 print(e)
