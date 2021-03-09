@@ -30,6 +30,9 @@ for i in m:
         except Exception:
                 print((0,0))
 
+cur.execute('''alter table address add column if not exists latitude varchar;''')
+cur.execute('''alter table address add column if not exists longtitude varchar;''')
+
 con.commit()
 
 # close db connection
