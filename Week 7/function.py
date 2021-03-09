@@ -24,8 +24,11 @@ m = cur.fetchall()
 geolocator = Nominatim(user_agent="db")
 
 for i in m:
-	location = geolocator.geocode(i[0])
-	print((location.latitude, location.longitude))
+        try:
+                location = geolocator.geocode(i[0])
+                print((location.latitude, location.longitude))
+        except Exception:
+                print((0,0))
 
 con.commit()
 
