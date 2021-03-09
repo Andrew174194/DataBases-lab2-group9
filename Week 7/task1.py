@@ -1,4 +1,5 @@
 import psycopg2
+import geopy.geocoders
 from faker import Faker
 from geopy.geocoders import Nominatim
 con = psycopg2.connect(database="postgres", user="postgres",
@@ -21,26 +22,24 @@ language plpgsql;''')
 cur.execute('''select retrieve();''')
 m = cur.fetchall()
 
-#print(m)
-
 nice = {}
 
-geolocator = Nominatim(user_agent="db")
-
-print(m)
+geolocator = Nominatim(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36")
+geopy.geocoders.options.default_timeout = 10
 
 for i in m:
         try:
                 location = geolocator.geocode(i[0].split(',')[1][1:-2])
                 nice[i[0].split(',')[0][1:]] = (location.latitude, location.longitude)
         except Exception as e:
+                print('For address_id = {n} we have following error:'.format(n=i[0].split(',')[0][1:]))
                 print(e)
                 nice[i[0].split(',')[0][1:]] = (0, 0)
 
 cur.execute('''alter table address add column if not exists latitude varchar;''')
 cur.execute('''alter table address add column if not exists longtitude varchar;''')
 
-print(nice)
+print(len(nice))
 
 for k in nice.keys():
         cur.execute('''update address set latitude={latitude}, longtitude={longtitude} where address_id={address_id};'''.format(latitude=nice[k][0], longtitude=nice[k][1], address_id=k))
