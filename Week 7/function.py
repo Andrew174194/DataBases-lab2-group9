@@ -23,18 +23,22 @@ m = cur.fetchall()
 
 print(m)
 
+nice = {}
+
 geolocator = Nominatim(user_agent="db")
 
 for i in m:
         try:
                 location = geolocator.geocode(i[0].split(',')[1][1:-2])
-                print((location.latitude, location.longitude))
+                nice[i[0].split(',')[0][1:]] = (location.latitude, location.longitude)
         except Exception:
-                print((0,0))
+                nice[i[0].split(',')[0][1:]] = (0, 0)
 
 cur.execute('''alter table address add column if not exists latitude varchar;''')
 cur.execute('''alter table address add column if not exists longtitude varchar;''')
 con.commit()
+
+print(nice)
 
 # close db connection
 cur.close()
