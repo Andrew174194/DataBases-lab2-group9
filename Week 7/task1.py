@@ -21,24 +21,31 @@ language plpgsql;''')
 cur.execute('''select retrieve();''')
 m = cur.fetchall()
 
-print(m)
+#print(m)
 
 nice = {}
 
 geolocator = Nominatim(user_agent="db")
 
+print(m)
+
 for i in m:
         try:
                 location = geolocator.geocode(i[0].split(',')[1][1:-2])
                 nice[i[0].split(',')[0][1:]] = (location.latitude, location.longitude)
-        except Exception:
+        except Exception as e:
+                print(e)
                 nice[i[0].split(',')[0][1:]] = (0, 0)
 
 cur.execute('''alter table address add column if not exists latitude varchar;''')
 cur.execute('''alter table address add column if not exists longtitude varchar;''')
-con.commit()
 
 print(nice)
+
+for k in nice.keys():
+        cur.execute('''update address set latitude={latitude}, longtitude={longtitude} where address_id={address_id};'''.format(latitude=nice[k][0], longtitude=nice[k][1], address_id=k))
+
+con.commit()
 
 # close db connection
 cur.close()
