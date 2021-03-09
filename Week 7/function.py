@@ -1,5 +1,6 @@
 import psycopg2
 from faker import Faker
+from geopy.geocoders import Nominatim
 con = psycopg2.connect(database="postgres", user="postgres",
                        password="postgres", host="127.0.0.1", port="5432")
 
@@ -17,12 +18,14 @@ end;
 $$
 language plpgsql;''')
 
-print('Status of creation of function:')
-print(cur.fetchone()[0], end='\n\n')
-
 cur.execute('''select retrieve();''')
-print('Retrieved data:')
-print(cur.fetchone()[0], end='\n\n')
+m = cur.fetchall()
+
+geolocator = Nominatim(user_agent="db")
+
+for i in m:
+	location = geolocator.geocode(i[0])
+	print((location.latitude, location.longitude))
 
 con.commit()
 
