@@ -13,7 +13,9 @@ insert into accounts(account_name, account_credit) values ('Andrey', 1000);
 
 -- transaction T1
 
-BEGIN WORK;
+BEGIN;
+
+SAVEPOINT T1;
 
 UPDATE accounts 
 SET account_credit = account_credit - 500
@@ -23,4 +25,48 @@ UPDATE accounts
 SET account_credit = account_credit + 500
 WHERE account_id = 3;
 
-COMMIT WORK;
+SELECT * from accounts;
+
+ROLLBACK TO T1;
+
+COMMIT;
+
+-- transaction T2
+
+BEGIN;
+
+SAVEPOINT T2;
+
+UPDATE accounts 
+SET account_credit = account_credit - 700
+WHERE account_id = 2;
+
+UPDATE accounts 
+SET account_credit = account_credit + 700
+WHERE account_id = 1;
+
+SELECT * from accounts;
+
+ROLLBACK TO T2;
+
+COMMIT;
+
+-- transaction T3
+
+BEGIN;
+
+SAVEPOINT T1;
+
+UPDATE accounts 
+SET account_credit = account_credit - 200
+WHERE account_id = 2;
+
+UPDATE accounts 
+SET account_credit = account_credit + 200
+WHERE account_id = 3;
+
+SELECT * from accounts;
+
+ROLLBACK TO T1;
+
+COMMIT;
