@@ -42,7 +42,7 @@ BEGIN;
 SAVEPOINT T2;
 
 UPDATE accounts
-SET account_credit = account_credit - 700
+SET account_credit = account_credit - 700 - 30
 WHERE account_id = 2;
 
 UPDATE accounts
@@ -66,7 +66,7 @@ BEGIN;
 SAVEPOINT T3;
 
 UPDATE accounts
-SET account_credit = account_credit - 100
+SET account_credit = account_credit - 100 - 30
 WHERE account_id = 2;
 
 UPDATE accounts
