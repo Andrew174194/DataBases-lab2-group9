@@ -55,7 +55,7 @@ COMMIT;
 
 BEGIN;
 
-SAVEPOINT T1;
+SAVEPOINT T3;
 
 UPDATE accounts 
 SET account_credit = account_credit - 200
@@ -67,6 +67,6 @@ WHERE account_id = 3;
 
 SELECT * from accounts;
 
-ROLLBACK TO T1;
+ROLLBACK TO T3;
 
 COMMIT;
