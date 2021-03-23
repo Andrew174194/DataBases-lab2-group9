@@ -71,9 +71,9 @@ postgres=*# SELECT * from accounts;
  account_id | account_name | account_credit | account_bank 
 ------------+--------------+----------------+--------------
           3 | Andrey       |           1000 | SpearBank
-          2 | German       |           -460 | Tinkoff
-          1 | Vladimir     |           2400 | SpearBank
-          4 | Fees         |             60 | 
+          2 | German       |            270 | Tinkoff
+          1 | Vladimir     |           1700 | SpearBank
+          4 | Fees         |             30 | 
 (4 rows)
 
 postgres=*# 
@@ -113,10 +113,10 @@ postgres=*#
 postgres=*# SELECT * from accounts;
  account_id | account_name | account_credit | account_bank 
 ------------+--------------+----------------+--------------
-          1 | Vladimir     |           1700 | SpearBank
-          2 | German       |            140 | Tinkoff
+          1 | Vladimir     |           1000 | SpearBank
+          2 | German       |            870 | Tinkoff
           3 | Andrey       |           1100 | SpearBank
-          4 | Fees         |             60 | 
+          4 | Fees         |             30 | 
 (4 rows)
 
 postgres=*# 
