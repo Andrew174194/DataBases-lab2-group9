@@ -82,6 +82,7 @@ ROLLBACK
 postgres=*# 
 postgres=*# COMMIT;
 COMMIT
+postgres=#
 ```
 
 ## Transaction 3
@@ -124,4 +125,5 @@ ROLLBACK
 postgres=*# 
 postgres=*# COMMIT;
 COMMIT
+postgres=#
 ```
