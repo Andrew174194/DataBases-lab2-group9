@@ -1,5 +1,3 @@
-## Transaction 1
-
 ```sql
 postgres=# -- transaction T1
 postgres=# 
@@ -34,20 +32,7 @@ postgres=*# SELECT * from accounts;
 (4 rows)
 
 postgres=*# 
-postgres=*# ROLLBACK TO T1;
-ROLLBACK
-postgres=*# 
-postgres=*# COMMIT;
-COMMIT
-postgres=#
-```
-
-## Transaction 2
-```sql
-postgres=# -- transaction T2
-postgres=# 
-postgres=# BEGIN;
-BEGIN
+postgres=*# -- transaction T2
 postgres=*# 
 postgres=*# SAVEPOINT T2;
 SAVEPOINT
@@ -70,27 +55,14 @@ postgres=*#
 postgres=*# SELECT * from accounts;
  account_id | account_name | account_credit | account_bank 
 ------------+--------------+----------------+--------------
-          3 | Andrey       |           1000 | SpearBank
+          3 | Andrey       |           1500 | SpearBank
           2 | German       |            270 | Tinkoff
-          1 | Vladimir     |           1700 | SpearBank
+          1 | Vladimir     |           1200 | SpearBank
           4 | Fees         |             30 | 
 (4 rows)
 
 postgres=*# 
-postgres=*# ROLLBACK TO T2;
-ROLLBACK
-postgres=*# 
-postgres=*# COMMIT;
-COMMIT
-postgres=#
-```
-
-## Transaction 3
-```sql
-postgres=# -- transaction T3
-postgres=# 
-postgres=# BEGIN;
-BEGIN
+postgres=*# -- transaction T3
 postgres=*# 
 postgres=*# SAVEPOINT T3;
 SAVEPOINT
@@ -113,17 +85,26 @@ postgres=*#
 postgres=*# SELECT * from accounts;
  account_id | account_name | account_credit | account_bank 
 ------------+--------------+----------------+--------------
-          1 | Vladimir     |           1000 | SpearBank
-          2 | German       |            870 | Tinkoff
-          3 | Andrey       |           1100 | SpearBank
-          4 | Fees         |             30 | 
+          1 | Vladimir     |           1200 | SpearBank
+          2 | German       |            140 | Tinkoff
+          3 | Andrey       |           1600 | SpearBank
+          4 | Fees         |             60 | 
 (4 rows)
 
 postgres=*# 
-postgres=*# ROLLBACK TO T3;
+postgres=*# ROLLBACK TO T1;
 ROLLBACK
 postgres=*# 
 postgres=*# COMMIT;
 COMMIT
+postgres=# SELECT * from accounts;
+ account_id | account_name | account_credit | account_bank 
+------------+--------------+----------------+--------------
+          2 | German       |           1000 | Tinkoff
+          1 | Vladimir     |           1000 | SpearBank
+          3 | Andrey       |           1000 | SpearBank
+          4 | Fees         |              0 | 
+(4 rows)
+
 postgres=#
 ```

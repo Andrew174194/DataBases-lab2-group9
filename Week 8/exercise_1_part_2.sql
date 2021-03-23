@@ -31,13 +31,7 @@ WHERE account_id = 4;
 
 SELECT * from accounts;
 
-ROLLBACK TO T1;
-
-COMMIT;
-
 -- transaction T2
-
-BEGIN;
 
 SAVEPOINT T2;
 
@@ -55,13 +49,7 @@ WHERE account_id = 4;
 
 SELECT * from accounts;
 
-ROLLBACK TO T2;
-
-COMMIT;
-
 -- transaction T3
-
-BEGIN;
 
 SAVEPOINT T3;
 
@@ -79,6 +67,6 @@ WHERE account_id = 4;
 
 SELECT * from accounts;
 
-ROLLBACK TO T3;
+ROLLBACK TO T1;
 
 COMMIT;

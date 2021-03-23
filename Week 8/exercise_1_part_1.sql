@@ -19,56 +19,44 @@ BEGIN;
 
 SAVEPOINT T1;
 
-UPDATE accounts 
+UPDATE accounts
 SET account_credit = account_credit - 500
 WHERE account_id = 1;
 
-UPDATE accounts 
+UPDATE accounts
 SET account_credit = account_credit + 500
 WHERE account_id = 3;
 
 SELECT * from accounts;
 
-ROLLBACK TO T1;
-
-COMMIT;
-
 -- transaction T2
-
-BEGIN;
 
 SAVEPOINT T2;
 
-UPDATE accounts 
+UPDATE accounts
 SET account_credit = account_credit - 700
 WHERE account_id = 2;
 
-UPDATE accounts 
+UPDATE accounts
 SET account_credit = account_credit + 700
 WHERE account_id = 1;
 
 SELECT * from accounts;
 
-ROLLBACK TO T2;
-
-COMMIT;
-
 -- transaction T3
-
-BEGIN;
 
 SAVEPOINT T3;
 
-UPDATE accounts 
+UPDATE accounts
 SET account_credit = account_credit - 200
 WHERE account_id = 2;
 
-UPDATE accounts 
+UPDATE accounts
 SET account_credit = account_credit + 200
 WHERE account_id = 3;
 
 SELECT * from accounts;
 
-ROLLBACK TO T3;
+ROLLBACK TO T1;
 
 COMMIT;
