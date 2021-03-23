@@ -30,11 +30,7 @@ ROLLBACK TO T1;
 
 INSERT INTO ledger(from_id, to_id, fee, amount, transaction_time) VALUES (1, 3, 0, 500, CURRENT_TIMESTAMP);
 
-COMMIT;
-
 -- transaction T2
-
-BEGIN;
 
 SAVEPOINT T2;
 
@@ -52,15 +48,9 @@ WHERE account_id = 4;
 
 SELECT * from accounts;
 
-ROLLBACK TO T2;
-
 INSERT INTO ledger(from_id, to_id, fee, amount, transaction_time) VALUES (2, 1, 30, 700, CURRENT_TIMESTAMP);
 
-COMMIT;
-
 -- transaction T3
-
-BEGIN;
 
 SAVEPOINT T3;
 
@@ -78,7 +68,7 @@ WHERE account_id = 4;
 
 SELECT * from accounts;
 
-ROLLBACK TO T3;
+ROLLBACK TO T1;
 
 INSERT INTO ledger(from_id, to_id, fee, amount, transaction_time) VALUES (2, 3, 30, 100, CURRENT_TIMESTAMP);
 
