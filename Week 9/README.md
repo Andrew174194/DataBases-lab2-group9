@@ -48,7 +48,15 @@ Type "it" for more
 { "_id" : ObjectId("6062cc9a73d81921b728725a"), "borough" : "Queens", "cuisine" : "Delicatessen", "name" : "Sal'S Deli", "restaurant_id" : "40361618" }
 Type "it" for more
 ```
-
 ###  Find the first 5 restaurant which is in the borough Bronx
+```json
+> db.restaurants.find({}, {"borough": "Bronx"}).limit(5)
+{ "_id" : ObjectId("6062cc9a73d81921b7287247"), "borough" : "Bronx" }
+{ "_id" : ObjectId("6062cc9a73d81921b7287248"), "borough" : "Bronx" }
+{ "_id" : ObjectId("6062cc9a73d81921b7287249"), "borough" : "Bronx" }
+{ "_id" : ObjectId("6062cc9a73d81921b728724a"), "borough" : "Bronx" }
+{ "_id" : ObjectId("6062cc9a73d81921b728724b"), "borough" : "Bronx" }
+```
+### Find the restaurant Id, name, borough and cuisine for those restaurants which  prepared dish except 'American' and 'Chinese' or restaurant's name begins with  letter 'Wil’.
 ```json
 ```
