@@ -1,0 +1,193 @@
+[{
+  "_id": {
+    "$oid": "6062d73faf3a920f0054a0b4"
+  },
+  "borough": "Bronx",
+  "grades": [
+    {
+      "date": {
+        "$date": "2014-03-03T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 2
+    },
+    {
+      "date": {
+        "$date": "2013-09-11T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 6
+    },
+    {
+      "date": {
+        "$date": "2013-01-24T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2011-11-23T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 9
+    },
+    {
+      "date": {
+        "$date": "2011-03-10T00:00:00Z"
+      },
+      "grade": "B",
+      "score": 14
+    }
+  ],
+  "name": "Morris Park Bake Shop",
+  "restaurant_id": "30075445"
+},{
+  "_id": {
+    "$oid": "6062d73faf3a920f0054a0be"
+  },
+  "borough": "Bronx",
+  "grades": [
+    {
+      "date": {
+        "$date": "2014-05-28T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 11
+    },
+    {
+      "date": {
+        "$date": "2013-06-19T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 4
+    },
+    {
+      "date": {
+        "$date": "2012-06-15T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 3
+    }
+  ],
+  "name": "Wild Asia",
+  "restaurant_id": "40357217"
+},{
+  "_id": {
+    "$oid": "6062d73faf3a920f0054a0d3"
+  },
+  "borough": "Bronx",
+  "grades": [
+    {
+      "date": {
+        "$date": "2014-04-24T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2013-09-05T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2013-02-21T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 9
+    },
+    {
+      "date": {
+        "$date": "2012-07-03T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 11
+    },
+    {
+      "date": {
+        "$date": "2011-07-11T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 5
+    }
+  ],
+  "name": "Carvel Ice Cream",
+  "restaurant_id": "40363093"
+},{
+  "_id": {
+    "$oid": "6062d73faf3a920f0054a0d7"
+  },
+  "borough": "Bronx",
+  "grades": [
+    {
+      "date": {
+        "$date": "2013-12-30T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 8
+    },
+    {
+      "date": {
+        "$date": "2013-01-08T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2012-06-12T00:00:00Z"
+      },
+      "grade": "B",
+      "score": 15
+    }
+  ],
+  "name": "Happy Garden",
+  "restaurant_id": "40363289"
+},{
+  "_id": {
+    "$oid": "6062d73faf3a920f0054a0e9"
+  },
+  "borough": "Bronx",
+  "grades": [
+    {
+      "date": {
+        "$date": "2014-03-03T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2013-09-26T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2013-03-19T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 10
+    },
+    {
+      "date": {
+        "$date": "2012-08-29T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 11
+    },
+    {
+      "date": {
+        "$date": "2011-08-17T00:00:00Z"
+      },
+      "grade": "A",
+      "score": 13
+    }
+  ],
+  "name": "Happy Garden",
+  "restaurant_id": "40364296"
+}]
