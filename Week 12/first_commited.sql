@@ -16,7 +16,7 @@ update test_table set username = 'ajones' where fullname = 'Alice Jones';
 -- after commit we can read update username both on first & second terminal
 
 -- step III
-select * from test_table;:
+select * from test_table;
 -- terminal 1 output:
  id | username |     fullname     | balance | group_id 
 ----+----------+------------------+---------+----------
