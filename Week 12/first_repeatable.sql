@@ -1,13 +1,4 @@
-create table test_table (id serial primary key, username varchar not null, fullname varchar not null, balance int not null, group_id int not null);
-
-insert into test_table (username, fullname, balance, group_id) values ('jones', 'Alice Jones', 82, 1);
-insert into test_table (username, fullname, balance, group_id) values ('bitdiddl', 'Ben Bitdiddle', 65, 1);
-insert into test_table (username, fullname, balance, group_id) values ('mike', 'Michael Dole', 73, 2);
-insert into test_table (username, fullname, balance, group_id) values ('alyssa', 'Alyssa P. Hacker', 79, 3);
-insert into test_table (username, fullname, balance, group_id) values ('bbrown', 'Bob Brown', 100, 3);
-
-
--- READ COMMITED
+-- REPEATABLE READ
 
 -- step I
 -- terminal 1
@@ -78,14 +69,13 @@ update test_table set balance = balance + 20 where fullname = 'Alice Jones';
 
 -- we're hang on terminal 2, waiting for commit on first terminal
 
--- ERROR:  could not serialize access due to concurrent update
-
 -- step IX
 -- terminal 1
 commit;
 
 -- step X
 -- terminal 2
+-- ERROR:  could not serialize access due to concurrent update
 rollback to T1;
 end;
 
