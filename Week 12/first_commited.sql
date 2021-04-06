@@ -77,6 +77,7 @@ commit;
 -- step X
 -- terminal 2
 rollback to T1;
+commit;
 
 -- terminal 1 && 2 output:
 postgres=# select * from test_table;
