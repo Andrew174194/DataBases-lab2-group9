@@ -78,7 +78,7 @@ commit;
 -- terminal 2
 -- ERROR:  could not serialize access due to concurrent update
 rollback to T1;
-end;
+commit;
 
 -- terminal 1 && 2 output:
 postgres=# select * from test_table;
