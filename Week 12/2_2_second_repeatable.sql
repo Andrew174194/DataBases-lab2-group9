@@ -41,6 +41,7 @@ update test_table set balance = balance + 15 where group_id = 2;
 -- terminal 1 && 2
 commit;
 select * from test_table;
+-- terminal 1 && 2 output:
  id | username |     fullname     | balance | group_id 
 ----+----------+------------------+---------+----------
   1 | jones    | Alice Jones      |      82 |        1
@@ -51,3 +52,4 @@ select * from test_table;
 (5 rows)
 
 -- so we do not update Bob's balance
+-- we only move Bob to second group and increase Mike account balance

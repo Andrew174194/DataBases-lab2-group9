@@ -53,3 +53,4 @@ select * from test_table;
 (5 rows)
 
 -- so we do not update Bob's balance
+-- we only move Bob to second group and increase Mike account balance
