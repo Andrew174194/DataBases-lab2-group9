@@ -26,6 +26,7 @@ update test_table set group_id = 2 where username = 'bbrown';
 -- step 4
 -- terminal 1
 select * from test_table where group_id = 2;
+
  id | username |   fullname   | balance | group_id 
 ----+----------+--------------+---------+----------
   3 | mike     | Michael Dole |      73 |        2
@@ -41,6 +42,7 @@ update test_table set balance = balance + 15 where group_id = 2;
 -- terminal 1 && 2
 commit;
 select * from test_table;
+
 -- terminal 1 && 2 output:
  id | username |     fullname     | balance | group_id 
 ----+----------+------------------+---------+----------
