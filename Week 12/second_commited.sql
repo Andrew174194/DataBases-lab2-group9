@@ -41,7 +41,7 @@ update test_table set balance = balance + 15 where group_id = 2;
 -- step 6
 -- terminal 1 && 2
 commit;
-selet * from test_table;
+select * from test_table;
 -- terminal 1 && 2 output:
  id | username |     fullname     | balance | group_id 
 ----+----------+------------------+---------+----------
