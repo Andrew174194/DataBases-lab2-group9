@@ -12,6 +12,9 @@ begin;
 set transaction isolation level repeatable read;
 update test_table set username = 'ajones' where fullname = 'Alice Jones';
 
+-- we're simply reading previous copy of test_table in first terminal, so no problem occured
+-- after commit we have updated test_table on first & second terminal
+
 -- step III
 select * from test_table;
 -- terminal 1 output:

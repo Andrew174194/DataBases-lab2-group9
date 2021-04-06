@@ -12,7 +12,8 @@ begin;
 set transaction isolation level read committed;
 update test_table set username = 'ajones' where fullname = 'Alice Jones';
 
--- we're not hang here because we're reading commited data
+-- we're not hang here because we're reading previous copy of test_table
+-- after commit we can read update username both on first & second terminal
 
 -- step III
 select * from test_table;:
