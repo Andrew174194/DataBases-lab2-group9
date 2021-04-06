@@ -42,5 +42,14 @@ update test_table set balance = balance + 15 where group_id = 2;
 -- terminal 1 && 2
 commit;
 selet * from test_table;
+-- terminal 1 && 2 output:
+ id | username |     fullname     | balance | group_id 
+----+----------+------------------+---------+----------
+  1 | jones    | Alice Jones      |      82 |        1
+  2 | bitdiddl | Ben Bitdiddle    |      65 |        1
+  4 | alyssa   | Alyssa P. Hacker |      79 |        3
+  5 | bbrown   | Bob Brown        |     100 |        2
+  3 | mike     | Michael Dole     |      88 |        2
+(5 rows)
 
 -- so we do not update Bob's balance
