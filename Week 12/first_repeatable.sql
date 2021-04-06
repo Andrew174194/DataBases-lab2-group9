@@ -66,8 +66,6 @@ update test_table set balance = balance + 10 where fullname = 'Alice Jones';
 
 -- step VIII
 -- terminal 2
-begin;
-set transaction isolation level repeatable read;
 update test_table set balance = balance + 20 where fullname = 'Alice Jones';
 
 -- we're hang on terminal 2, waiting for commit on first terminal
