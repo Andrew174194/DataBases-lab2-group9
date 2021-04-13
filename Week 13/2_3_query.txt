@@ -1,6 +1,6 @@
 MATCH (p: Fighter {name: "Khabib Nurmagomedov"}), 
 	(pp: Fighter) 
 WHERE 
-	(p)-[:beats*]->(pp) 
+	(p)-[:beats*2..]->(pp) 
     and NOT (pp.name = p.name) 
 RETURN pp;
