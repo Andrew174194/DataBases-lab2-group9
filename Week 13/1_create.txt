@@ -1,12 +1,12 @@
-Create(p:Fighter {name: "Khabib Nurmagomedov",weight:"155"}),(pp:Fighter {name: "Rafael Dos Anjos", weight:"155"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Rafael Dos Anjos"}),(pp:Fighter {name: "Rafael Dos Anjos", weight:"170"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Jon Jones",weight:"205"}),(pp:Fighter {name: "Daniel Cormier", weight:"205"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Michael Bisping",weight:"185"}),(pp:Fighter {name: "Matt Hamill", weight:"185"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Jon Jones"}),(pp:Fighter {name: "Brandon Vera", weight:"205"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Brandon Vera"}),(pp:Fighter {name: "Frank Mir", weight:"230"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Frank Mir"}),(pp:Fighter {name: "Brock Lesnar", weight:"230"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Neil Magny"}),(pp:Fighter {name: "Kelvin Gastelum", weight:"185"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Kelvin Gastelum"}),(pp:Fighter {name: "Michael Bisping"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Michael Bisping"}),(pp:Fighter {name: "Matt Hamill"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Michael Bisping"}),(pp:Fighter {name: "Kelvin Gastelum"}), (p)-[:beats]->(pp)
-Create(p:Fighter {name: "Matt Hamill"}),(pp:Fighter {name: "Jon Jones"}), (p)-[:beats]->(pp)
+Create(p:Fighter {name: "Khabib Nurmagomedov",weight:"155"}),(pp:Fighter {name: "Rafael Dos Anjos", weight:"155"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Rafael Dos Anjos"}),(pp:Fighter {name: "Rafael Dos Anjos", weight:"170"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Jon Jones",weight:"205"}),(pp:Fighter {name: "Daniel Cormier", weight:"205"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Michael Bisping",weight:"185"}),(pp:Fighter {name: "Matt Hamill", weight:"185"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Jon Jones"}),(pp:Fighter {name: "Brandon Vera", weight:"205"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Brandon Vera"}),(pp:Fighter {name: "Frank Mir", weight:"230"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Frank Mir"}),(pp:Fighter {name: "Brock Lesnar", weight:"230"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Neil Magny"}),(pp:Fighter {name: "Kelvin Gastelum", weight:"185"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Kelvin Gastelum"}),(pp:Fighter {name: "Michael Bisping"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Michael Bisping"}),(pp:Fighter {name: "Matt Hamill"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Michael Bisping"}),(pp:Fighter {name: "Kelvin Gastelum"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Matt Hamill"}),(pp:Fighter {name: "Jon Jones"}), (p)-[:beats]->(pp);
