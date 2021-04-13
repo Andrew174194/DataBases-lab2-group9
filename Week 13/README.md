@@ -26,4 +26,22 @@ MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Michael Bisping" AND b.name = "Ma
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Michael Bisping" AND b.name = "Kelvin Gastelum" CREATE (a)-[:beats]->(b);
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Matt Hamill" AND b.name = "Jon Jones" CREATE (a)-[:beats]->(b);
 ```
-![1](https://i.ibb.co/JQggKBc/graph.jpg)
+![1](https://i.ibb.co/VDWnpH0/graph.jpg)
+
+
+### Second exercise
+##### First query
+```json
+MATCH (p:Fighter), (pp:Fighter) WHERE (p.weight = "155" or p.weight = "170" or p.weight = "185") and (p)-[:beats]->(pp) RETURN p;
+```
+![2](https://i.ibb.co/c1CD6Nn/graph.jpg)
+
+##### Second query
+```json
+MATCH (p:Fighter), (pp:Fighter) WHERE ((p)-[:beats]->(pp) and (pp)-[:beats]->(p)) RETURN COUNT(p);
+```
+```json
+2
+```
+
+##### Third query
