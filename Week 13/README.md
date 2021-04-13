@@ -86,3 +86,184 @@ SET p.w = w, p.l = l
 RETURN p, w, l
 ```
 ![6](https://i.ibb.co/hL3n2z9/graph.jpg)
+
+```json
+﻿[
+  {
+    "n": {
+"identity": 0,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 0,
+"name": "Khabib Nurmagomedov",
+"weight": "155",
+"l": 0
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 1,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 1,
+"name": "Rafael Dos Anjos",
+"weight": "155",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 2,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 1,
+"name": "Neil Magny",
+"weight": "170",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 3,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 2,
+"w": 2,
+"loses": 1,
+"name": "Jon Jones",
+"weight": "205",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 4,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 0,
+"w": 0,
+"loses": 1,
+"name": "Daniel Cormier",
+"weight": "205",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 5,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 3,
+"w": 3,
+"loses": 1,
+"name": "Michael Bisping",
+"weight": "185",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 6,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 2,
+"name": "Matt Hamill",
+"weight": "185",
+"l": 2
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 7,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 1,
+"name": "Brandon Vera",
+"weight": "205",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 8,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 1,
+"name": "Frank Mir",
+"weight": "230",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 9,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 0,
+"w": 0,
+"loses": 1,
+"name": "Brock Lesnar",
+"weight": "230",
+"l": 1
+      }
+    }
+  },
+  {
+    "n": {
+"identity": 10,
+"labels": [
+        "Fighter"
+      ],
+"properties": {
+"wins": 1,
+"w": 1,
+"loses": 2,
+"name": "Kelvin Gastelum",
+"weight": "185",
+"l": 2
+      }
+    }
+  }
+]
+```
