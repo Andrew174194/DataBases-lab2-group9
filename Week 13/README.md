@@ -26,4 +26,4 @@ MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Michael Bisping" AND b.name = "Ma
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Michael Bisping" AND b.name = "Kelvin Gastelum" CREATE (a)-[:beats]->(b);
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Matt Hamill" AND b.name = "Jon Jones" CREATE (a)-[:beats]->(b);
 ```
-![1](https://i.ibb.co/1vvWkYd/graph.png)
+![1](https://i.ibb.co/JQggKBc/graph.jpg)
