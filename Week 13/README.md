@@ -59,11 +59,11 @@ RETURN p, pp
 MATCH (p: Fighter {name: "Khabib Nurmagomedov"}), 
 	(pp: Fighter) 
 WHERE 
-	(p)-[:beats*]->(pp) 
+	(p)-[:beats*2..]->(pp) 
     and NOT (pp.name = p.name) 
 RETURN pp;
 ```
-![4](https://i.ibb.co/dBLB24r/graph.jpg)
+![4](https://i.ibb.co/dkhK041/graph.jpg)
 
 ##### Fourth query
 ```json
