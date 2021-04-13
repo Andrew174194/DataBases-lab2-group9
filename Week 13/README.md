@@ -38,10 +38,33 @@ MATCH (p:Fighter), (pp:Fighter) WHERE (p.weight = "155" or p.weight = "170" or p
 
 ##### Second query
 ```json
-MATCH (p:Fighter), (pp:Fighter) WHERE ((p)-[:beats]->(pp) and (pp)-[:beats]->(p)) RETURN COUNT(p);
+MATCH 
+    (p:Fighter)-[p_c:beats]->(pp:Fighter), (pp)-[pp_c:beats]->(p)
+
+WITH 
+    p, pp,
+    count(p_c) AS p_w, 
+    count(pp_c) AS pp_w
+    
+WHERE
+    p_w = 1 AND 
+    pp_w = 1
+
+RETURN p, pp
 ```
-```json
-2
-```
+![3](https://i.ibb.co/ckz537v/graph.jpg)
 
 ##### Third query
+```json
+MATCH (p: Fighter {name: "Khabib Nurmagomedov"}), 
+	(pp: Fighter) 
+WHERE 
+	(p)-[:beats*]->(pp) 
+    and NOT (pp.name = p.name) 
+RETURN pp;
+```
+![4](https://i.ibb.co/dBLB24r/graph.jpg)
+
+##### Fourth query
+```json
+```
