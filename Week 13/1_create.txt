@@ -1,5 +1,5 @@
 Create(p:Fighter {name: "Khabib Nurmagomedov",weight:"155"}),(pp:Fighter {name: "Rafael Dos Anjos", weight:"155"}), (p)-[:beats]->(pp);
-Create(p:Fighter {name: "Rafael Dos Anjos"}),(pp:Fighter {name: "Rafael Dos Anjos", weight:"170"}), (p)-[:beats]->(pp);
+Create(p:Fighter {name: "Rafael Dos Anjos"}),(pp:Fighter {name: "Neil Magny", weight:"170"}), (p)-[:beats]->(pp);
 Create(p:Fighter {name: "Jon Jones",weight:"205"}),(pp:Fighter {name: "Daniel Cormier", weight:"205"}), (p)-[:beats]->(pp);
 Create(p:Fighter {name: "Michael Bisping",weight:"185"}),(pp:Fighter {name: "Matt Hamill", weight:"185"}), (p)-[:beats]->(pp);
 Create(p:Fighter {name: "Jon Jones"}),(pp:Fighter {name: "Brandon Vera", weight:"205"}), (p)-[:beats]->(pp);
