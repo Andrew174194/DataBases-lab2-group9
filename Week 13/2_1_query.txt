@@ -1,0 +1,1 @@
+MATCH (p:Fighter), (pp:Fighter) WHERE (p.weight = "155" or p.weight = "170" or p.weight = "185") and (p)-[:beats]->(pp) RETURN p;
