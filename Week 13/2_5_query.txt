@@ -1,0 +1,11 @@
+MATCH (p:Fighter) OPTIONAL MATCH (p)-[nice:beats]->()
+    
+WITH p, count(nice) AS w
+
+OPTIONAL MATCH ()-[nice:beats]->(p)
+    
+WITH p, w, count(nice) AS l
+    
+SET p.w = w, p.l = l
+    
+RETURN p, w, l

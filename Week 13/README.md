@@ -12,7 +12,6 @@ Create(p:Fighter {name: "Frank Mir", weight:"230"});
 Create(p:Fighter {name: "Brock Lesnar", weight:"230"});
 Create(p:Fighter {name: "Kelvin Gastelum", weight:"185"});
 
-
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Khabib Nurmagomedov" AND b.name = "Rafael Dos Anjos" CREATE (a)-[:beats]->(b);
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Rafael Dos Anjos" AND b.name = "Neil Magny" CREATE (a)-[:beats]->(b);
 MATCH (a:Fighter), (b:Fighter) WHERE a.name = "Jon Jones" AND b.name = "Daniel Cormier" CREATE (a)-[:beats]->(b);
@@ -74,4 +73,16 @@ MATCH (p:Fighter) WHERE NOT (()-[:beats]->(p) AND (p)-[:beats]->()) RETURN p;
 
 ##### Fifth query
 ```json
+MATCH (p:Fighter) OPTIONAL MATCH (p)-[nice:beats]->()
+    
+WITH p, count(nice) AS w
+
+OPTIONAL MATCH ()-[nice:beats]->(p)
+    
+WITH p, w, count(nice) AS l
+    
+SET p.w = w, p.l = l
+    
+RETURN p, w, l
 ```
+![6](https://i.ibb.co/hL3n2z9/graph.jpg)
