@@ -67,4 +67,11 @@ RETURN pp;
 
 ##### Fourth query
 ```json
+MATCH (p:Fighter) WHERE NOT (()-[:beats]->(p) AND (p)-[:beats]->()) RETURN p;
+```
+![5](https://i.ibb.co/rmbYM98/graph.jpg)
+
+
+##### Fifth query
+```json
 ```
