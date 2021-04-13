@@ -1,0 +1,9 @@
+MATCH (p: Fighter {name: "Michael Bisping"}), 
+	(pp: Fighter), 
+    (f3: Fighter) 
+WHERE 
+	(p)-[:beats]->(pp) 
+    and (f3)-[:beats]->(pp) 
+    and not ((p)-[:beats]->(f3) or (f3)-[:beats]->(p)) 
+    and NOT (f3.name = p.name) 
+RETURN f3;
