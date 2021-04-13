@@ -1,1 +1,1 @@
-MATCH (p:Fighter), (pp:Fighter), WHERE ((p)-[:beats]->(pp) and (pp)-[:beats]->(p)) RETURN p;
+MATCH (p:Fighter), (pp:Fighter) WHERE ((p)-[:beats]->(pp) and (pp)-[:beats]->(p)) RETURN COUNT(p);
