@@ -1,0 +1,14 @@
+HSET posts:1 post_id 1
+HSET posts:1 id 2
+HSET posts:1 timestamp 20/04/21
+HSET posts:1 text "Hello Redis social network!"
+
+HSET posts:2 post_id 2
+HSET posts:2 id 1
+HSET posts:2 timestamp 20/04/21
+HSET posts:2 text "Hello German!"
+
+HSET posts:3 post_id 3
+HSET posts:3 id 3
+HSET posts:3 timestamp 20/04/21
+HSET posts:3 text "Hello Vladimir!"
