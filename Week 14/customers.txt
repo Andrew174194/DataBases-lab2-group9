@@ -1,23 +1,23 @@
-HSET 1 customers:customer_numb 001
-HSET 1 customers:first_name Jane
-HSET 1 customers:last_name Doe
+HSET customers:1 customer_numb 001
+HSET customers:1 first_name Jane
+HSET customers:1 last_name Doe
 
-HSET 2 customers:customer_numb 002
-HSET 2 customers:first_name John
-HSET 2 customers:last_name Doe
+HSET customers:2 customer_numb 002
+HSET customers:2 first_name John
+HSET customers:2 last_name Doe
 
-HSET 3 customers:customer_numb 003
-HSET 3 customers:first_name Jane
-HSET 3 customers:last_name Smith
+HSET customers:3 customer_numb 003
+HSET customers:3 first_name Jane
+HSET customers:3 last_name Smith
 
-HSET 4 customers:customer_numb 004
-HSET 4 customers:first_name John
-HSET 4 customers:last_name Smith
+HSET customers:4 customer_numb 004
+HSET customers:4 first_name John
+HSET customers:4 last_name Smith
 
-HSET 5 customers:customer_numb 005
-HSET 5 customers:first_name Jane
-HSET 5 customers:last_name Jones
+HSET customers:5 customer_numb 005
+HSET customers:5 first_name Jane
+HSET customers:5 last_name Jones
 
-HSET 6 customers:customer_numb 006
-HSET 6 customers:first_name John
-HSET 6 customers:last_name Jones
+HSET customers:6 customer_numb 006
+HSET customers:6 first_name John
+HSET customers:6 last_name Jones

@@ -1,3 +1,4 @@
-HSET 1 orders:order_numb 1001
-HSET 1 orders:customer_numb 002
-HSET 1 orders:order_date 
+HSET orders:1 order_numb 1001
+HSET orders:1 customer_numb 002
+HSET orders:1 order_date 10/10/09
+HSET orders:1 order_total 250.85
