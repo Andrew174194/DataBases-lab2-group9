@@ -1,0 +1,3 @@
+HSET 1 orders:order_numb 1001
+HSET 1 orders:customer_numb 002
+HSET 1 orders:order_date 
