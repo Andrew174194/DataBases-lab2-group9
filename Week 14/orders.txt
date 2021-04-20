@@ -2,3 +2,38 @@ HSET orders:1 order_numb 1001
 HSET orders:1 customer_numb 002
 HSET orders:1 order_date 10/10/09
 HSET orders:1 order_total 250.85
+
+HSET orders:2 order_numb 1002
+HSET orders:2 customer_numb 002
+HSET orders:2 order_date 2/21/10
+HSET orders:2 order_total 125.89
+
+HSET orders:3 order_numb 1003
+HSET orders:3 customer_numb 003
+HSET orders:3 order_date 11/15/09
+HSET orders:3 order_total 1567.99
+
+HSET orders:4 order_numb 1004
+HSET orders:4 customer_numb 004
+HSET orders:4 order_date 11/22/09
+HSET orders:4 order_total 180.92
+
+HSET orders:5 order_numb 1005
+HSET orders:5 customer_numb 004
+HSET orders:5 order_date 12/15/09
+HSET orders:5 order_total 565.00
+
+HSET orders:6 order_numb 1006
+HSET orders:6 customer_numb 006
+HSET orders:6 order_date 11/22/09
+HSET orders:6 order_total 25.00
+
+HSET orders:7 order_numb 1007
+HSET orders:7 customer_numb 006
+HSET orders:7 order_date 10/8/09
+HSET orders:7 order_total 85.00
+
+HSET orders:8 order_numb 1008
+HSET orders:8 customer_numb 006
+HSET orders:8 order_date 12/29/09
+HSET orders:8 order_total 109.12
