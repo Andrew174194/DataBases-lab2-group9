@@ -1,0 +1,23 @@
+HSET 1 customer_numb 001
+HSET 1 first_name Jane
+HSET 1 last_name Doe
+
+HSET 2 customer_numb 002
+HSET 2 first_name John
+HSET 2 last_name Doe
+
+HSET 3 customer_numb 003
+HSET 3 first_name Jane
+HSET 3 last_name Smith
+
+HSET 4 customer_numb 004
+HSET 4 first_name John
+HSET 4 last_name Smith
+
+HSET 5 customer_numb 005
+HSET 5 first_name Jane
+HSET 5 last_name Jones
+
+HSET 6 customer_numb 006
+HSET 6 first_name John
+HSET 6 last_name Jones
