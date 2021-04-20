@@ -2,6 +2,7 @@
 redis-cli flushall
 cat customers.txt | redis-cli --pipe
 cat orders.txt | redis-cli --pipe
+echo
 echo 'First customer:'
 redis-cli HMGET customers:1 customer_numb first_name last_name
 echo
